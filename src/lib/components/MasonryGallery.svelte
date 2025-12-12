@@ -92,7 +92,7 @@
             <img 
               src={photo.url} 
               alt={photo.title}
-              class="w-full h-auto object-cover opacity-100"
+              class="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-110"
               loading="lazy" 
             />
 

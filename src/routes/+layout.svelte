@@ -8,6 +8,7 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
+  <title>Além dos Olhos - Fotografia</title>
 </svelte:head>
 
 {@render children()}
