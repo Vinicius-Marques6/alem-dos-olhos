@@ -4,7 +4,7 @@
   import BackToTop from '$lib/components/BackToTop.svelte';
   import PhotoModal from '$lib/components/PhotoModal.svelte';
 
-  export let data; 
+  let { data } = $props();
 </script>
 
 <div>

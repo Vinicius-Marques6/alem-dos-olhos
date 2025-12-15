@@ -2,13 +2,9 @@
   import { onMount, onDestroy } from 'svelte';
   import { fade } from 'svelte/transition';
 
-  export let photos: {
-    url: string;
-    title: string;
-    description: string;
-  }[] = [];
+  let { photos }: { photos: { url: string; title: string; description: string }[] } = $props();
 
-  let actual = 0;
+  let actual = $state(0);
   let interval: ReturnType<typeof setInterval>;
 
   const nextPhoto = () => {
@@ -35,7 +31,7 @@
 <div class="relative w-full h-[85vh] bg-black overflow-hidden group">
   
   {#each photos as photo, index (index)}
-    <div 
+    <div
       class="absolute inset-0 transition-opacity duration-1000 ease-in-out"
       class:opacity-100={index === actual}
       class:z-10={index === actual}
@@ -81,7 +77,7 @@
 
   <!-- svelte-ignore a11y_consider_explicit_label -->
   <button 
-    on:click={previousPhoto}
+    onclick={previousPhoto}
     class="absolute left-4 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full bg-white/10 hover:bg-white/30 backdrop-blur-sm text-white opacity-0 group-hover:opacity-100 transition-all duration-300 cursor-pointer"
   >
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-8 h-8">
@@ -91,7 +87,7 @@
 
   <!-- svelte-ignore a11y_consider_explicit_label -->
   <button 
-    on:click={nextPhoto}
+    onclick={nextPhoto}
     class="absolute right-4 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full bg-white/10 hover:bg-white/30 backdrop-blur-sm text-white opacity-0 group-hover:opacity-100 transition-all duration-300 cursor-pointer"
   >
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-8 h-8">
@@ -103,7 +99,7 @@
     {#each photos as _, idx}
       <!-- svelte-ignore a11y_consider_explicit_label -->
       <button
-        on:click={() => goToPhoto(idx)}
+        onclick={() => goToPhoto(idx)}
         class="h-1 transition-all duration-500 rounded-full cursor-pointer"
         class:w-8={idx === actual}
         class:bg-white={idx === actual}

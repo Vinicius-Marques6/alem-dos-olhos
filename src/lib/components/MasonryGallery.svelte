@@ -4,23 +4,17 @@
 
   import { selectedPhoto, type Photo } from '$lib/stores/photoStore';
 
-  type Photo = {
-    id: string;
-    url: string;
-    title: string;
-    creator: string;
-  };
+  let { initialPhotos }: { initialPhotos: Photo[] } = $props();
 
-  export let initialPhotos: Photo[] = [];
-
-  let photos = initialPhotos;
+  // svelte-ignore state_referenced_locally
+  let photos = $state(initialPhotos);
   let offset = 20;
-  let loading = false;
-  let hasMore = true;
-  let numColumns = 1;
+  let loading = $state(false);
+  let hasMore = $state(true);
+  let numColumns = $state(1);
   let sentinel: HTMLDivElement; 
 
-  $: columns = distributePhotos(photos, numColumns);
+  let columns = $derived(distributePhotos(photos, numColumns));
 
   function distributePhotos(items: Photo[], cols: number) {
     const result: Photo[][] = Array.from({ length: cols }, () => []);
@@ -105,7 +99,6 @@
       </div>
     {/each}
   </div>
-
   <div bind:this={sentinel} class="h-20 flex justify-center items-center w-full mt-4">
     {#if loading}
       <div class="w-8 h-8 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>

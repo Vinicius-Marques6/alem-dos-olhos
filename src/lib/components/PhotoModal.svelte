@@ -13,7 +13,9 @@
   <div
     class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm"
     transition:fade={{ duration: 300 }}
-    on:click|self={close}
+    onclick={ (e) => {
+      if (e.target === e.currentTarget) close();
+    } }
   >
     <div
       class="relative max-w-5xl w-full h-full flex items-center justify-center pointer-events-none"
@@ -34,7 +36,7 @@
 
     <button
       class="absolute top-4 right-4 text-white bg-white/10 p-2 rounded-full hover:bg-white/20 transition cursor-pointer z-50"
-      on:click={close}
+      onclick={close}
       aria-label="Close photo modal"
     >
       <svg

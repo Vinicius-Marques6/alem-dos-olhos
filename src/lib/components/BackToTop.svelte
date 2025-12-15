@@ -1,9 +1,9 @@
 <script lang="ts">
   import { fly } from 'svelte/transition';
 
-  let y = 0;
+  let y = $state(0);
   
-  $: show = y > 500;
+  let show = $derived(y > 300);
 
   function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -14,7 +14,7 @@
 
 {#if show}
   <button
-    on:click={scrollToTop}
+    onclick={scrollToTop}
     aria-label="Back to top"
     transition:fly={{ y: 50, duration: 500 }} 
     class="fixed bottom-8 right-8 z-50 
